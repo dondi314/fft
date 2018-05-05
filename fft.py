@@ -19,3 +19,14 @@ def fft(x):
     return vec_add(X_even, hadamard(X_odd, factor[:n // 2])) + \
         vec_add(X_even, hadamard(X_odd, factor[n // 2:]))
 
+
+def ifft(x):
+    return [a / len(x) for a in fft(x)]
+
+
+def fftshift(x):
+    return x[(len(x) + 1) // 2:] + x[:(len(x) + 1) // 2]
+
+
+def ifftshift(x):
+    return x[len(x) // 2:] + x[:len(x) // 2]
