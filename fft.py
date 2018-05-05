@@ -30,3 +30,15 @@ def fftshift(x):
 
 def ifftshift(x):
     return x[len(x) // 2:] + x[:len(x) // 2]
+
+
+def convolve(x, y):
+    length = len(x) + len(y) - 1
+    x = x + [0] * (length - len(x))
+    next_prime = len(x)
+    while next_prime & (next_prime - 1):
+        next_prime += 1
+    x = x + [0] * (next_prime - len(x))
+    y = y + [0] * (len(x) - len(y))
+    return [ifft(hadamard(fft(x), fft(y)))[-i]
+            for i in range(length)]
